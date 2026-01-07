@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ralim.github.io/IronOS/DebuggingPD/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Debugging USB-PD - IronOS</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Debugging USB-PD";
+        var mkdocs_page_input_path = "DebuggingPD.md";
+        var mkdocs_page_url = "/IronOS/DebuggingPD/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> IronOS
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../GettingStarted/">Getting Started</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flashing the firmware</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/MHP30/">MHP30</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/Pinecil%20V1/">Pinecil V1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/Pinecil%20V2/">Pinecil V2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/TS80%28P%29/">TS80(P)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/TS100/">TS100</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Operation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Menu/">Main Menu</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Settings/">Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DebugMenu/">Debug Menu</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Power/">Power</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Temperature/">Temperature</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Logo/">Startup Logo</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Hardware</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Bluetooth/">Bluetooth (Pinecil V2)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Debugging USB-PD</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#if-the-unit-doesnt-power-up-at-all">If the unit doesn't power up at all</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#no-power">No power</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#powers-up-on-other-supplies">Powers up on other supplies</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#if-the-unit-powers-up-but-keeps-rebooting">If the unit powers up but keeps rebooting</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HallSensor/">Hall Sensor (Pinecil)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Hardware/">Hardware Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HardwareIssues/">Known Hardware Issues</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PortingToNewDevice/">New Hardware Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PowerSources/">Power sources</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting/">Troubleshooting</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../WS2812BModding/">WS2812B RGB Modding (Pinecil V2)</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Translation/">Translations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Development/">Development</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../History/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">IronOS</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Hardware</li>
+      <li class="breadcrumb-item active">Debugging USB-PD</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ralim/IronOS/edit/dev/Documentation/DebuggingPD.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="debugging-pd">Debugging PD</h1>
+<p>When using many of these soldering irons, the recommended power source is to use a USB-PD power supply.</p>
+<p>Occasionally, issues are run into where the iron reboots or appears to not boot when connected to this supply.</p>
+<p>There are generally a few different reasons for this to occur, the first is of course a bug or incompatibility in the IronOS PD-stack / firmware, but there are also power adapters that either have issues or try to be <em>smart</em> to the detriment of compatibility.</p>
+<p>It also helps to remember that driving a soldering iron is not like a normal load that these power supplies are designed for. Normally a laptop or phone will gently ramp the power draw up and down. Where as the soldering iron will rapidly go from 0 to full power, and then back to 0 again. This can cause issues with some power supplies tripping out.</p>
+<p>In general, a normal, boring 60-100W PD supply is recommended. Watch out for adapters with multiple ports that are used by marketing to advertise a higher number. It's somewhat common to see 65W adapters being pushed that have two ports, one of which is 45W and one that is 20W. These cannot support 65W output on one typically.</p>
+<p>Smarter chargers that try to implement every known protocol can come with quirks. Often slight shortcuts are taken in the PD implementation that can cause hard to debug issues.</p>
+<h2 id="if-the-unit-doesnt-power-up-at-all">If the unit doesn't power up at all</h2>
+<p>This can be the most frustrating one to diagnose.</p>
+<p>First, test the device powers up when powered by a USB-A -&gt; USB-C cable. Or a DC power supply. This can rule out other issues that cause the device to appear off (bad flashing).</p>
+<h3 id="no-power">No power</h3>
+<p>If your device won't power up on any other supply type, look into if you can boot into the bootloader. This is usually done by holding down a button while connecting it to a computer and then checking if it's detected.</p>
+<p>If the device shows up to a computer, but doesn't operate when powered up normally, the two most likely causes are a bad flash/firmware OR a non-functioning display.</p>
+<p>Testing alternative firmware builds or trying to heat the unit (pressing the front button) can be ways to test this.</p>
+<h3 id="powers-up-on-other-supplies">Powers up on other supplies</h3>
+<p>If the device powers up on other supplies, but not on the USB-PD supply, it could be a problem with the USB-PD supply itself. Try using a different USB-PD supply to see if the issue persists.</p>
+<p>If the unit does not power on any PD supplies it could be damage to the PD PHY or the USB connector. USB-PD uses the CC pins on the connector, which are not used for normal data so a USB-A adapter for example doesn't use these at all.</p>
+<h2 id="if-the-unit-powers-up-but-keeps-rebooting">If the unit powers up but keeps rebooting</h2>
+<p>There are two causes of this:
+1. If the reboot occurs when the unit starts to heat up, then it is the power supply being unable to supply the power requested.
+2. The unit reboots frequently even without any buttons being pressed.</p>
+<p>If this is the issue that you are seeing, then the problem is that something during the PD initialisation is failing.</p>
+<p>The <em>best</em> way to resolve this is to be able to capture the USB PD traffic. This is the only way to know what is <strong>really</strong> going on and why the two devices can't negotiate.</p>
+<p>To capture PD traffic requires a device that can capture this data. A logic analyser can be used on the CC pins, though note that the signalling voltage is &lt; 3.3V so it will require a logic analyser that can handle this or buffering.</p>
+<p>Alternatively, a lot of the higher-end USB power meter units can capture the packets. It doesn't matter if it only shows these on screen or if it can save these out to a file (ideally a file though).</p>
+<p><strong>Without a traffic capture, all debugging is guessing</strong></p>
+<p>On firmwares 2.23+ there is a toggle in advanced settings to change the PD mode. This will adjust how the firmware negotiates with the PD supply slightly. This can enable/disable the PPS and EPR modes (dynamic voltage negotiation).</p>
+<p>PPS is known to be incorrectly implemented on some supplies, so turning off these features can improve compatibility.</p>
+<p>If the device is <em>sometimes</em> stable, you can on Pinecil devices boot while holding the front button to enter the PD debug menu. This will show what voltages &amp; power levels are being advertised by the device. This can be used to cross-check with what is printed on the adapter. Take into consideration that non e-marked cables will be limited to 3A and that EPR requires specifically marked cables.</p>
+<p>If you take the tip out of the iron, it will result in most devices not negotiating a PD profile (the irons wait to know what kind of tip is installed). This can be used to stop the failing negotiations in some situations to allow viewing this menu.</p>
+<p>Before filing a support request, please try testing other power adapters &amp; cables to try and narrow down the possibilities of the issue being a one-off.
+If you have the capability to capture the PD traffic, that makes the problem exponentially easier to rectify.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Bluetooth/" class="btn btn-neutral float-left" title="Bluetooth (Pinecil V2)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../HallSensor/" class="btn btn-neutral float-right" title="Hall Sensor (Pinecil)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ralim/IronOS/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Bluetooth/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../HallSensor/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

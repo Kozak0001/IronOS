@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ralim.github.io/IronOS/WS2812BModding/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>WS2812B RGB Modding (Pinecil V2) - IronOS</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "WS2812B RGB Modding (Pinecil V2)";
+        var mkdocs_page_input_path = "WS2812BModding.md";
+        var mkdocs_page_url = "/IronOS/WS2812BModding/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> IronOS
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../GettingStarted/">Getting Started</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flashing the firmware</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/MHP30/">MHP30</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/Pinecil%20V1/">Pinecil V1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/Pinecil%20V2/">Pinecil V2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/TS80%28P%29/">TS80(P)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Flashing/TS100/">TS100</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Operation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Menu/">Main Menu</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Settings/">Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DebugMenu/">Debug Menu</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Power/">Power</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Temperature/">Temperature</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Logo/">Startup Logo</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Hardware</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Bluetooth/">Bluetooth (Pinecil V2)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DebuggingPD/">Debugging USB-PD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HallSensor/">Hall Sensor (Pinecil)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Hardware/">Hardware Notes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HardwareIssues/">Known Hardware Issues</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PortingToNewDevice/">New Hardware Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PowerSources/">Power sources</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting/">Troubleshooting</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">WS2812B RGB Modding (Pinecil V2)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-it">What is it?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#electrical-considerations">Electrical considerations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-wire-it">How to wire it?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-enable-it-in-the-code">How to enable it in the code?</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Translation/">Translations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Development/">Development</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../History/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">IronOS</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Hardware</li>
+      <li class="breadcrumb-item active">WS2812B RGB Modding (Pinecil V2)</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ralim/IronOS/edit/dev/Documentation/WS2812BModding.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ws2812b-rgb-modding-pinecil-v2">WS2812B RGB Modding (Pinecil V2)</h1>
+<h2 id="what-is-it">What is it?</h2>
+<p>The idea of this mod is to bring the RGB feature of the MHP30 to the Pinecil V2.
+Use a transparent shell for a better effect.</p>
+<p>Pinecil V2 has a free GPIO_12 accessible through TP10, which is along the screen, cf <a href="https://files.pine64.org/doc/Pinecil/Pinecil_PCB_placement_v2.0_20220608.pdf">Pinecil PCB placement v2.0</a> page 3. (TP9 (GPIO_14) is also available but hidden below the screen. If you want to use it, change <code>WS2812B_Pin</code> in <code>source/Core/BSP/Pinecilv2/Pins.h</code>.)</p>
+<p>We'll using it to drive a WS2812B and let the color logic already present for the MHP30 do its magic:</p>
+<ul>
+<li>green when temperature is safe (&lt; 55°C)</li>
+<li>pulsing red when heating</li>
+<li>solid red when desired temperature is reached</li>
+<li>orange when cooling down</li>
+</ul>
+<h2 id="electrical-considerations">Electrical considerations</h2>
+<p>WS2812B requires a Vdd between 3.5 and 5.3V and Vih (high level of input signal) must be at least 0.7*Vdd.
+Pinecil V2 GPIO levels are 3.3V and the 5V rail is actually max 4.6V.
+So we can directly power the WS2812B on the 5V rail and command it with the GPIO without need for a level shifter, or for a Zener diode to clamp Vdd.</p>
+<h2 id="how-to-wire-it">How to wire it?</h2>
+<ul>
+<li>WS2812B pin 1 (Vdd) is connected to the "5V" rail, e.g. on the C8 capacitor as illustrated <a href="https://github.com/Ralim/IronOS/issues/1410#issuecomment-1296064392">here</a>.</li>
+<li>WS2812B pin 3 (Vss) is connected to the Pinecil GND, e.g. on the U10 pad at the back of the PCB, below R35, as illustrated <a href="https://github.com/Ralim/IronOS/issues/1410#issuecomment-1296064392">here</a>.</li>
+<li>WS2812B pin 4 (Din) is connected to TP10.</li>
+</ul>
+<p>You can use e.g. 0.1-mm enameled wire and isolate connections with UV glue to avoid any shortcut.</p>
+<h2 id="how-to-enable-it-in-the-code">How to enable it in the code?</h2>
+<p><code>make firmware-EN model=Pinecilv2 ws2812b_enable=1</code></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Troubleshooting/" class="btn btn-neutral float-left" title="Troubleshooting"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Translation/" class="btn btn-neutral float-right" title="Translations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ralim/IronOS/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Troubleshooting/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Translation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
