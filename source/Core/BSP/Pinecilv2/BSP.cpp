@@ -93,8 +93,9 @@ void setStatusLED(const enum StatusLED state) {
 #if defined(WS2812B_ENABLE)
   static enum StatusLED lastState = LED_UNKNOWN;
 
-  constexpr uint8_t MAX_BRIGHT = 85; // ~1/3 of 255
+  constexpr uint8_t MAX_BRIGHT = 85; // ~1/3 від 255
 
+  // Для HEATING і COOLING оновлюємо постійно, бо там анімація
   bool forceUpdate = (state == LED_HEATING || state == LED_COOLING_STILL_HOT);
 
   if (lastState != state || forceUpdate) {
@@ -106,17 +107,31 @@ void setStatusLED(const enum StatusLED state) {
       break;
 
     case LED_STANDBY:
-      ws2812b.led_set_color(0, 0, MAX_BRIGHT, 0); // green
+      ws2812b.led_set_color(0, 0, MAX_BRIGHT, 0); // зелений
       break;
 
     case LED_HEATING: {
-      uint8_t r = ((xTaskGetTickCount() / 4) % MAX_BRIGHT);
-      ws2812b.led_set_color(0, r, 0, 0);
+      uint8_t r = (uint8_t)((xTaskGetTickCount() / 4) % MAX_BRIGHT);
+      ws2812b.led_set_color(0, r, 0, 0); // червоний fade
     } break;
 
     case LED_HOT:
-      ws2812b.led_set_color(0, MAX_BRIGHT, 0, 0);
+      ws2812b.led_set_color(0, MAX_BRIGHT, 0, 0); // червоний
       break;
 
     case LED_COOLING_STILL_HOT: {
-      uint32_t ms  =_
+      // Жовтий повільний "пульс" 2 секунди
+      uint32_t ms  = (uint32_t)(xTaskGetTickCount() * portTICK_PERIOD_MS);
+      uint32_t p   = ms % 2000;
+      uint32_t tri = (p < 1000) ? p : (2000 - p);
+      uint8_t  k   = (uint8_t)((tri * MAX_BRIGHT) / 1000);
+
+      ws2812b.led_set_color(0, k, k, 0); // жовтий
+    } break;
+    }
+
+    ws2812b.led_update();
+    lastState = state;
+  }
+#endif
+}
