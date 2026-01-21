@@ -27,7 +27,7 @@ private:
 
   // Global brightness limiter (0..255)
   // 40 ~= 15% brightness: much less glare + much less internal heating.
-  static constexpr uint8_t BRIGHTNESS = 40;
+  static constexpr uint8_t BRIGHTNESS = 85; // ~33% від максимуму
 
   static inline uint8_t scale(uint8_t v) {
     return (uint16_t(v) * BRIGHTNESS) / 255;
@@ -103,3 +103,4 @@ public:
 };
 
 #endif /* CORE_DRIVERS_WS2812B_H_ */
+
