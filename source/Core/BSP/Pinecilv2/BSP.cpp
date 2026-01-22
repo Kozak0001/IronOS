@@ -145,39 +145,68 @@ bool isTipDisconnected() {
 void setStatusLED(const enum StatusLED state) {
 #if defined(WS2812B_ENABLE)
   static enum StatusLED lastState = LED_UNKNOWN;
+  static TickType_t lastUpdate    = 0;
 
-  // Важливо: LED_HEATING має анімацію, тому оновлюємо завжди в цьому режимі
-  if (lastState != state || state == LED_HEATING) {
-    switch (state) {
+  TickType_t now = xTaskGetTickCount();
+
+  // Оновлюємо часто, щоб була анімація
+  // 30мс — норм для “дихання”
+  const TickType_t refresh = pdMS_TO_TICKS(30);
+
+  if ((state == lastState) && ((now - lastUpdate) < refresh)) {
+    return;
+  }
+  lastUpdate = now;
+  lastState  = state;
+
+  // ---- Breath 0..255..0 ----
+  // швидкість: чим більше дільник, тим повільніше
+  uint32_t t = (uint32_t)(now / 8);
+  uint8_t phase  = (uint8_t)(t & 0xFF);
+  uint8_t breath = (phase < 128) ? (uint8_t)(phase * 2) : (uint8_t)((255 - phase) * 2);
+
+  // ---- Порядок кольорів ----
+  // Якщо кольори не ті — поміняй 1 на 0
+  const uint8_t USE_GRB = 1;
+
+  uint8_t r = 0, g = 0, b = 0;
+
+  switch (state) {
     default:
     case LED_UNKNOWN:
     case LED_OFF:
-      ws2812b.led_set_color(0, 0, 0, 0);
+      r = 0; g = 0; b = 0;
       break;
 
     case LED_STANDBY:
-      ws2812b.led_set_color(0, 0, 0xFF, 0); // green
+      r = 0; g = 255; b = 0;
       break;
 
-    case LED_HEATING: {
-      // Плавне “дихання” червоного
-      // 64..255
-      uint8_t v = (uint8_t)(((xTaskGetTickCount() / 4) % 192) + 64);
-      ws2812b.led_set_color(0, v, 0, 0);
-    } break;
+    case LED_HEATING:
+      // червоний пульсує 64..255
+      r = (uint8_t)(64 + (breath * 191) / 255);
+      g = 0; b = 0;
+      break;
 
     case LED_HOT:
-      ws2812b.led_set_color(0, 0xFF, 0, 0); // red
+      r = 255; g = 0; b = 0;
       break;
 
     case LED_COOLING_STILL_HOT:
-      ws2812b.led_set_color(0, 0xFF, 0x20, 0x00); // orange
+      // жовто-помаранчевий пульс
+      r = 255;
+      g = (uint8_t)(40 + (breath * 140) / 255); // 40..180
+      b = 0;
       break;
-    }
-
-    ws2812b.led_update();
-    lastState = state;
   }
+
+  if (USE_GRB) {
+    ws2812b.led_set_color(0, g, r, b); // GRB
+  } else {
+    ws2812b.led_set_color(0, r, g, b); // RGB
+  }
+
+  ws2812b.led_update();
 #else
   (void)state;
 #endif
@@ -322,3 +351,4 @@ void showBootLogo(void) {
   flash_read(FLASH_LOGOADDR - 0x23000000, scratch, 1024);
   BootLogo::handleShowingLogo(scratch);
 }
+
